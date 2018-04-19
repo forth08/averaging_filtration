@@ -2,12 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.tri as tri
 import matplotlib
+
 def delaunay_edges(x, y):
     # Create Delaunay triangulation and return all edges
 
     triang = tri.Triangulation(x, y)
     edges = triang.edges
     return edges
+
 def edges_of_points(edges):
     # Find all neighbors points for points
 
@@ -33,6 +35,7 @@ def edges_of_points(edges):
            print('Calculate -', str(i * 100 // n_points + 1), '%')
 
     return np.array(pointS_edges)
+
 def calculate_distances(x, y, edges_of_points):
     # Calculate distances for all neighbours points
 
@@ -48,6 +51,7 @@ def calculate_distances(x, y, edges_of_points):
             point_distances.append(r)
         distances.append(np.array(point_distances))
     return np.array(distances)
+
 def average_filtration(h, edges_of_points, distances):
     # Average filtration for 3D cloud points
 
@@ -72,10 +76,12 @@ def average_filtration(h, edges_of_points, distances):
     print('Number of no colculated heights of points is :', error_points)
 
     return h_average
+
 def vv(h, h_average):
     vv = (h - h_average) ** 2
     print('Number of points is ', str(h.size))
     return vv, vv.sum()/h.size
+
 def open_XYH_file(file):
     # Open txt file and convert from string to float
 
@@ -102,6 +108,7 @@ def open_XYH_file(file):
     y = x_y_h[:, 1]
     h = x_y_h[:, 2]
     return x, y, h
+
 def plotting(x, y, h, h_filtered, pvv, sum_pvv):
 
     plt.figure()
@@ -133,25 +140,3 @@ def plotting(x, y, h, h_filtered, pvv, sum_pvv):
     title = '[PVV]=' + str(sum_pvv)
     plt.title(title)
     plt.show()
-
-
-print('Open txt file of XYH')
-x,y,h = open_XYH_file('test2.txt')
-
-print('Create edges')
-edges = delaunay_edges(x, y)
-
-print('Finding neighbours points')
-points = edges_of_points(edges)
-
-print('Calculate distances')
-distances = calculate_distances(x, y, points)
-
-print('Filtration')
-h_filtered = average_filtration(h, points, distances)
-
-print('Calculate PVV')
-pvv, sum_pvv = vv(h, h_filtered)
-
-print('Plotting')
-plotting(x, y, h, h_filtered, pvv, sum_pvv)
