@@ -140,3 +140,7 @@ def plotting(x, y, h, h_filtered, pvv, sum_pvv):
     title = '[PVV]=' + str(sum_pvv)
     plt.title(title)
     plt.show()
+
+if __name__ == '__main__':
+    print('You run this module but the module is for importing.')
+    input('\n\nPush Enter for exit')
