@@ -2,7 +2,7 @@
 Averaging filtration of 3D cloud points
 
 Steps:
-  1. Creation triangulation
+  1. Creating triangulation
   2. Finding edges
   3. Measuring distances
   4. Filtration
