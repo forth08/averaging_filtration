@@ -1,4 +1,4 @@
-# averaging_filtration
+# Averaging Filtration
 Averaging filtration of 3D cloud points
 
 Steps:
