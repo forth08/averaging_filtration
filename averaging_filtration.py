@@ -78,9 +78,10 @@ def average_filtration(h, edges_of_points, distances):
     return h_average
 
 def vv(h, h_average):
+    # It calculates square of difference of heights for each point and overal MSE
     vv = (h - h_average) ** 2
     print('Number of points is ', str(h.size))
-    return vv, vv.sum()/h.size
+    return vv, (vv.sum()/h.size) ** .5
 
 def open_XYH_file(file):
     # Open txt file and convert from string to float
