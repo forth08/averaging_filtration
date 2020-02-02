@@ -109,11 +109,11 @@ def open_XYH_file(file):
     y = x_y_h[:, 1]
     h = x_y_h[:, 2]
     return x, y, h
-
+    
 def plotting(x, y, h, h_filtered, pvv, sum_pvv):
+    plt.figure(figsize=(10, 6))
 
-    plt.figure()
-
+    plt.subplots_adjust(hspace = 0.5)
     plt.subplot(311)
     cmap = plt.cm.rainbow
     rounding = 1000
@@ -121,26 +121,27 @@ def plotting(x, y, h, h_filtered, pvv, sum_pvv):
     step = round(step * rounding) / rounding
     min_round = round(h.min() * rounding) / rounding
     max_round = round(h.max() * rounding) / rounding
-    points_size = 10
+    points_size = 5
 
     norm = matplotlib.colors.BoundaryNorm(np.arange(min_round, max_round, step), cmap.N)
     plt.scatter(x, y, c=h, cmap=cmap, norm=norm, s=points_size, edgecolor='none')
     plt.colorbar(ticks=np.linspace(h.min(), h.max(), 10))
-    plt.title('Original 3D Cloud')
+    plt.title('Original 3D Cloud. Number of points = ' + str(h.size))
 
     plt.subplot(312)
     plt.scatter(x, y, c=h_filtered, cmap=cmap, norm=norm, s=points_size, edgecolor='none', )
     plt.colorbar(ticks=np.linspace(h.min(), h.max(), 10))
-    plt.title('FIltered 3D Cloud')
+    plt.title('Filtered 3D Cloud')
 
     plt.subplot(313)
     cmap = plt.cm.rainbow
     norm = matplotlib.colors.BoundaryNorm(np.arange(pvv.min(), pvv.max(), (pvv.max() - pvv.min()) / 10), cmap.N)
     plt.scatter(x, y, c=pvv, cmap=cmap, norm=norm, s=points_size, edgecolor='none') # 50 - is a scaling for good viewing
     plt.colorbar(ticks=np.linspace(pvv.min(), pvv.max(), 10))
-    title = '[PVV]=' + str(sum_pvv)
+    title = 'MSE = ' + str(round(sum_pvv, 4))
     plt.title(title)
     plt.show()
+
 
 if __name__ == '__main__':
     print('You run this module but the module is for importing.')
